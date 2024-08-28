@@ -4,11 +4,12 @@ export const List = styled.ul`
   display: flex;
   align-content: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
 `;
 export const ListImg = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: auto;
 `;
 export const ListName = styled.h2`
   font-size: 15px;

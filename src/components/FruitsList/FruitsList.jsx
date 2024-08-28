@@ -1,18 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import { List, ListImg, ListName, ListPrice } from "./fruitList.styled";
 
-export default class FruitList extends Component {
-  state = {
-    fruits: this.props.fruits,
-  };
-  render() {
-    const { fruits } = this.state;
+export default function FruitList({fruits, obj}) { 
     return (
       <>
         <List>
           {fruits.map(({ id, name, price, src }) => (
             <li
               key={id}
+              id={id}
               style={{
                 width: "150px",
               }}
@@ -20,10 +16,12 @@ export default class FruitList extends Component {
               <ListName>{name}</ListName>
               <ListPrice>{price}</ListPrice>
               <ListImg src={src} alt="image" />
+              <button onClick={obj.editCard}>Edit</button>
+              <button onClick={obj.deleteCard}>Delete</button>
             </li>
           ))}
         </List>
       </>
     );
   }
-}
+

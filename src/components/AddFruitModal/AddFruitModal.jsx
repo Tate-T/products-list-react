@@ -1,4 +1,3 @@
-import { Component } from "react";
 import {
   AddFruitBackdrop,
   AddFruitBox,
@@ -8,39 +7,41 @@ import {
   AddFruitButton,
 } from "./AddFruit.styled";
 
-class AddFruitModal extends Component {
-  state = {
-    hide: false,
-  };
-
-  openModal = () =>
-    this.setState({
-      hide: true,
-    });
-
-  closeModal = () =>
-    this.setState({
-      hide: false,
-    });
-
-  render() {
-    const { hide } = this.state;
+function AddFruitModal({obj}) {
+    const { hide } = obj.state;
     return (
       <>
-        <button type="button" onClick={this.openModal}>
+        <button type="button" onClick={obj.openModal}>
           Add new fruit
         </button>
         {hide && (
           <AddFruitBackdrop>
             <AddFruitBox>
-              <AddFruitCloseBtn type="button" onClick={this.closeModal}>
+              <AddFruitCloseBtn type="button" onClick={obj.closeModal}>
                 Close
               </AddFruitCloseBtn>
-              <AddFruitForm>
+              <AddFruitForm onSubmit={() => {
+                if (obj.bool) {
+                  obj.saveData();
+                }
+                else {
+                  obj.editData();
+                }
+              }}>
                 <AddFruitInput
                   type="text"
-                  name="addFruitInputValue"
+                  name="fruitPrice"
+                  placeholder="Fruit price"
+                />
+                <AddFruitInput
+                  type="text"
+                  name="fruitName"
                   placeholder="Fruit name"
+                />
+                <AddFruitInput
+                  type="text"
+                  name="fruitPath"
+                  placeholder="Fruit image"
                 />
                 <AddFruitButton type="submit">Add fruit</AddFruitButton>
               </AddFruitForm>
@@ -49,7 +50,6 @@ class AddFruitModal extends Component {
         )}
       </>
     );
-  }
 }
 
 export default AddFruitModal;

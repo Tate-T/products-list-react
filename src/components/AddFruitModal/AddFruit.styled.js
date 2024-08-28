@@ -39,6 +39,7 @@ const AddFruitForm = styled.form`
   justify-content: center;
   background-color: aliceblue;
   padding: 40px;
+  gap: 10px;
 `;
 
 const AddFruitInput = styled.input`
