@@ -19,7 +19,8 @@ class App extends Component {
   state = {
     hide: false,
     fruits: fruitsList,
-    bool: true
+    bool: true,
+    updateData: -1
   };
   
   saveData = (e) => {
@@ -30,8 +31,8 @@ class App extends Component {
     const fruitName = event.elements.fruitName.value;
     const fruitPrice = event.elements.fruitPrice.value;
     const fruitImage = event.elements.fruitPath.value;
-
-    this.setState({ fruits: [...this.state.fruits, { price: fruitPrice, name: fruitName, id: createUniqueId(), src: fruitImage }] });
+    const fruitId = createUniqueId();
+    this.setState({ fruits: [...this.state.fruits, { price: fruitPrice, name: fruitName, id: fruitId, src: fruitImage }] });
     this.closeModal();
     e.target.reset();
   };
@@ -43,17 +44,41 @@ class App extends Component {
     this.setState({ fruits: newFruits });
   }
   editCard = (e) => {
-    this.openModal();
     
-    setTimeout(() => {
+    this.openModal();
+    this.setState({ bool: false });
+    let targetId = e.target.closest("li")["id"];
+    for (let i = 0; i < this.state.fruits.length; i++){
+      if (this.state.fruits[i].id === parseInt(targetId)) {
+        this.setState({ updateData: { index: i, id: parseInt(targetId) } });
+      }
+    }
+
+      setTimeout(() => {
       const fruitForm = document.querySelector("form");
       fruitForm.elements.fruitName.value = e.target.closest("li").querySelector("h2").textContent;
       fruitForm.elements.fruitPrice.value = e.target.closest("li").querySelector("p").textContent;
       fruitForm.elements.fruitPath.value = e.target.closest("li").querySelector("img")["src"];
 
     }, 20);
-   
   }
+  editData = (e) => {
+    e.preventDefault();
+    const event = e.target;
+    const fruitName = event.elements.fruitName.value;
+    const fruitPrice = event.elements.fruitPrice.value;
+    const fruitImage = event.elements.fruitPath.value;
+    const tempArr = this.state.fruits;
+    const elId = this.state.updateData.id;
+    tempArr.splice(this.state.updateData.index, 1, { price: fruitPrice, name: fruitName, id: elId, src: fruitImage });
+    console.log(tempArr);
+    console.log(this.state.updateData.id);
+    this.setState({ fruits: [...tempArr] });
+    this.closeModal();
+    event.reset();
+  }
+
+  
   openModal = () => 
     this.setState({
       hide: true, bool: true

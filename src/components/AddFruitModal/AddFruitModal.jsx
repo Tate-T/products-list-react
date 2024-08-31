@@ -8,7 +8,7 @@ import {
 } from "./AddFruit.styled";
 
 function AddFruitModal({obj}) {
-    const { hide } = obj.state;
+  const { hide, bool } = obj.state;
     return (
       <>
         <button type="button" onClick={obj.openModal}>
@@ -20,12 +20,13 @@ function AddFruitModal({obj}) {
               <AddFruitCloseBtn type="button" onClick={obj.closeModal}>
                 Close
               </AddFruitCloseBtn>
-              <AddFruitForm onSubmit={() => {
-                if (obj.bool) {
-                  obj.saveData();
+              <AddFruitForm onSubmit={(e) => {
+                console.log(bool);
+                if (bool === true) {
+                  obj.saveData(e);
                 }
-                else {
-                  obj.editData();
+                else if(bool === false) {
+                  obj.editData(e);
                 }
               }}>
                 <AddFruitInput

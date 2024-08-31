@@ -5,7 +5,8 @@ export default function FruitList({fruits, obj}) {
     return (
       <>
         <List>
-          {fruits.map(({ id, name, price, src }) => (
+          {fruits.map(({ id, name, price, src }) => {
+            return (
             <li
               key={id}
               id={id}
@@ -19,7 +20,7 @@ export default function FruitList({fruits, obj}) {
               <button onClick={obj.editCard}>Edit</button>
               <button onClick={obj.deleteCard}>Delete</button>
             </li>
-          ))}
+          )})}
         </List>
       </>
     );
