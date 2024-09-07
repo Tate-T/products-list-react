@@ -17,8 +17,8 @@ export default function FruitList({fruits, obj}) {
               <ListName>{name}</ListName>
               <ListPrice>{price}</ListPrice>
               <ListImg src={src} alt="image" />
-              <button onClick={obj.editCard}>Edit</button>
-              <button onClick={obj.deleteCard}>Delete</button>
+              <button onClick={obj.editCard} type="button">Edit</button>
+              <button onClick={obj.deleteCard} type="button">Delete</button>
             </li>
           )})}
         </List>
